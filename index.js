@@ -20,8 +20,7 @@ const sendTx = async(data, value) => {
         to: bridge.address,
         value: value,
         data: data
-        //chainId: 0
-    };
+    }
 
     let signedTransaction = wallet.sign(transaction)
     try {
@@ -34,15 +33,15 @@ const sendTx = async(data, value) => {
 }
 
 const deposit = async() => {
-    provider = ethers.getDefaultProvider(network)
+	provider = ethers.getDefaultProvider(network)
 
-    // paste your private key that contains ether on `network` that you want to bridge
- 	wallet = new Wallet("yourprivatekey", provider)
+	// paste your private key that contains ether on `network` that you want to bridge
+	wallet = new Wallet("yourprivatekey", provider)
 
 	let fp = path.resolve("./abi/Foreign.abi")
- 	let bridgeAbi = fs.readFileSync(fp, 'utf8')
+	let bridgeAbi = fs.readFileSync(fp, 'utf8')
 
-    let address = "0x39ba0e94e9105ad6340819429bee2ddc09ff8201"
+	let address = "0x39ba0e94e9105ad6340819429bee2ddc09ff8201"
 
 	bridge = (new ethers.Contract(address, bridgeAbi, provider)).connect(wallet)
 
@@ -54,8 +53,8 @@ const deposit = async() => {
 	let tx = await sendTx(data, value)
 	let txDone = await provider.waitForTransaction(tx.hash)
 	let receipt = await provider.getTransactionReceipt(tx.hash)
-	console.log(receipt)
-	if(receipt.status == 1) console.log(receipt.logs[0].topics)
+
+	if(receipt.status == 1) console.log("success!\n", receipt.logs[0].topics)
 	else console.error("could not send tx")
 }
 
