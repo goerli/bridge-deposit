@@ -41,7 +41,9 @@ const deposit = async() => {
 	let fp = path.resolve("./abi/Foreign.abi")
 	let bridgeAbi = fs.readFileSync(fp, 'utf8')
 
-	let address = "0x39ba0e94e9105ad6340819429bee2ddc09ff8201"
+	// let address = "0x17e59bede7feb4dfa0cdcb61601d3efba7d074c8" // ropsten
+	// let address = "0xeb9703d83ddcdab7d27be80d528642b74ae4e369" // rinkeby
+	let address = "0x39ba0e94e9105ad6340819429bee2ddc09ff8201" // kovan
 
 	bridge = (new ethers.Contract(address, bridgeAbi, provider)).connect(wallet)
 
